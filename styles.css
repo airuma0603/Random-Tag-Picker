@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: clamp(24px, 5vw, 32px);
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #34495e;
+    font-size: clamp(18px, 4vw, 24px);
+}
+
+.pool-management,
+.tag-management,
+.draw-settings,
+.result-area,
+.global-preview {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.pool-controls,
+.tag-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+    .pool-controls,
+    .tag-controls {
+        flex-direction: row;
+    }
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.pool-list,
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pool-item,
+.tag-item {
+    background-color: #ecf0f1;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    min-height: 44px;
+}
+
+.delete-btn,
+.rename-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setting-item {
+    margin-bottom: 15px;
+}
+
+.draw-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.draw-result {
+    min-height: 100px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.selected-pool {
+    background-color: #2980b9;
+    color: white;
+}
+
+.selected-pool .pool-info {
+    background-color: #3498db;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.selected-pool .pool-limits {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.selected-pool .pool-actions button {
+    background-color: #1f6aa5;
+    color: white;
+}
+
+.selected-pool .pool-actions button:hover {
+    background-color: #154b7a;
+}
+
+/* 全局预览样式 */
+.preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.pool-preview {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.pool-preview h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 18px;
+}
+
+.preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preview-tag {
+    background-color: #e0e0e0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* 标签池限制设置样式 */
+.pool-limit-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 16px;
+}
+
+.limit-inputs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.limit-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.limit-input-group label {
+    font-size: 16px;
+    color: #666;
+}
+
+.limit-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* 移动端优化 */
+@media (max-width: 767px) {
+    .container {
+        padding: 10px;
+    }
+
+    .pool-management,
+    .tag-management,
+    .draw-settings,
+    .result-area,
+    .global-preview {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .pool-item,
+    .tag-item {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .delete-btn,
+    .rename-btn {
+        padding: 8px 12px;
+    }
+
+    .limit-input-group input {
+        padding: 10px;
+    }
+}
+
+/* 防止移动端点击延迟 */
+a, button, input, select, textarea, label {
+    touch-action: manipulation;
+}
+
+/* 优化移动端滚动 */
+html {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* 结果显示区域样式 */
+.result-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.copy-button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.copy-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.copy-button:not(:disabled):hover {
+    background-color: #2980b9;
+}
+
+.pool-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pool-limits {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.pool-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pool-item:hover {
+    background-color: #e9e9e9;
+}
+
+.pool-input-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.pool-input-group input {
+    width: 200px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.preview-tag {
+    background-color: #e3f2fd;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.pool-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-limits-btn {
+    padding: 6px 12px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-limits-btn:hover {
+    background-color: #27ae60;
+}
+
+.pool-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.export-button {
+    background-color: #2ecc71;
+}
+
+.export-button:hover {
+    background-color: #27ae60;
+}
+
+.import-button {
+    background-color: #e67e22;
+}
+
+.import-button:hover {
+    background-color: #d35400;
+}
+
+.tag-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.tag-item.disabled {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+.tag-item.disabled span {
+    text-decoration: line-through;
+}
+
+.tag-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-btn {
+    padding: 4px 8px;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.toggle-btn:hover {
+    background-color: #d35400;
+}
+
+.context-menu {
+    position: fixed;
+    display: none;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.context-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.context-menu-item:hover {
+    background-color: #f5f5f5;
+}
+
+.context-menu-item[data-action="delete"] {
+    color: #e74c3c;
+}
+
+.context-menu-item[data-action="delete"]:hover {
+    background-color: #e74c3c;
+    color: white;
+} 

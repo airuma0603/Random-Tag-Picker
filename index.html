@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>标签池管理系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>标签池管理系统</h1>
+        
+        <!-- 标签池管理区域 -->
+        <div class="pool-management">
+            <h2>标签池管理</h2>
+            <div class="pool-controls">
+                <div class="pool-input-group">
+                    <input type="text" id="newPoolName" placeholder="输入新标签池名称" onkeypress="handleKeyPress(event, 'pool')">
+                    <div class="pool-limit-inputs">
+                        <div class="limit-input-group">
+                            <label for="newPoolMin">最小抽取数：</label>
+                            <input type="number" id="newPoolMin" min="0" value="0">
+                        </div>
+                        <div class="limit-input-group">
+                            <label for="newPoolMax">最大抽取数：</label>
+                            <input type="number" id="newPoolMax" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="pool-buttons">
+                    <button onclick="createNewPool()">创建新标签池</button>
+                    <button onclick="importPools()" class="import-button">导入标签池</button>
+                    <button onclick="exportPools()" class="export-button">导出标签池</button>
+                </div>
+            </div>
+            <div id="poolList" class="pool-list"></div>
+        </div>
+
+        <!-- 标签管理区域 -->
+        <div class="tag-management">
+            <h2>标签管理</h2>
+            <div class="tag-controls">
+                <input type="text" id="newTagName" placeholder="输入新标签名称" onkeypress="handleKeyPress(event, 'tag')">
+                <button onclick="addTag()">添加标签</button>
+            </div>
+            <div id="tagList" class="tag-list"></div>
+        </div>
+
+        <!-- 全局预览区域 -->
+        <div class="global-preview">
+            <h2>全局预览</h2>
+            <div id="globalPreview" class="preview-container"></div>
+        </div>
+
+        <!-- 抽取设置区域 -->
+        <div class="draw-settings">
+            <h2>抽取设置</h2>
+            <div class="settings-controls">
+                <div class="setting-item">
+                    <label>总抽取数量：</label>
+                    <input type="number" id="totalDrawCount" min="1" value="1" onkeypress="handleKeyPress(event, 'draw')">
+                </div>
+            </div>
+            <button onclick="drawTags()" class="draw-button">开始抽取</button>
+        </div>
+
+        <!-- 结果显示区域 -->
+        <div class="result-area">
+            <h2>抽取结果</h2>
+            <div class="result-controls">
+                <div id="drawResult" class="draw-result"></div>
+                <button onclick="copyResult()" class="copy-button" id="copyButton" disabled>复制结果</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div id="contextMenu" class="context-menu">
+        <div class="context-menu-item" data-action="rename">重命名</div>
+        <div class="context-menu-item" data-action="edit-limits">修改限制</div>
+        <div class="context-menu-item" data-action="delete">删除</div>
+        <div class="context-menu-item" data-action="toggle-disable">禁用/启用</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
